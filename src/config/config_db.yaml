@@ -1,6 +1,0 @@
-database:
-  user: datasentics_usr
-  password: datasentics_psw
-  host:  adwiro-db-dev.cq4x5uq8scw4.eu-central-1.rds.amazonaws.com
-  database: datasentics_cs
-  port: 3306

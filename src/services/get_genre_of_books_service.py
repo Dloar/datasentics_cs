@@ -7,8 +7,13 @@ from src.services.get_book_genre_service import get_book_info
 
 
 def get_genre_of_books(books_model_df: pd.DataFrame,
+                       books_genre: pd.DataFrame,
                        review_counts_list: List):
+
+    done_list_ids = list(books_genre['isbn'].unique())
     books_filter_genre_df = books_model_df.loc[books_model_df['isbn'].isin(review_counts_list)]
+    books_filter_genre_df = books_filter_genre_df.loc[~books_filter_genre_df['isbn'].isin(done_list_ids)]
+    print(books_filter_genre_df.shape)
 
     books_filter_genre_df['categories'] = None
     books_filter_genre_df['description'] = None
@@ -31,6 +36,8 @@ def get_genre_of_books(books_model_df: pd.DataFrame,
 
         # Optional: Add a delay to avoid hitting rate limits
         time.sleep(.1)
+        if i % 5000 == 0:
+            books_filter_genre_df.to_csv(f'books_filter_genre_df_{i}.csv', index=False)
         i += 1
         print(i)
 

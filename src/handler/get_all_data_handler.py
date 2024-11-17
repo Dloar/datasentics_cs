@@ -65,3 +65,16 @@ class GetAllData:
         """
         ratings_df = pd.read_sql(query, con=self.engine)
         return ratings_df
+
+    def genre_books(self):
+        # Function to load Books data with explicit columns
+        query = """
+            SELECT 
+                isbn, 
+                category, 
+                description
+            FROM books_genre;
+
+        """
+        books_df = pd.read_sql(query, con=self.engine)
+        return books_df

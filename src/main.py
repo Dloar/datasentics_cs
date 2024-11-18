@@ -20,7 +20,7 @@ books_model_df = preprocess_books(books_df)
 ratings_df, review_counts = preprocess_ratings(ratings_df)
 books_genre = preprocess_genre(books_genre)
 
-# Partition the data
+# Split of  the data
 books_complete_info_df, books_missing_genre_df, books_missing_all_df = partition_books(
     books_model_df, review_counts, books_genre
 )
@@ -39,5 +39,3 @@ model3_obj = ModelNonMissingHandler(books_complete_info=books_complete_info_df.r
                                     ratings_df=ratings_df)
 pred3 = model3_obj.hybrid_recommend_books(user_id=8)
 print(pred3)
-
-breakpoint()

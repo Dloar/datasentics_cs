@@ -1,14 +1,14 @@
 # Function to preprocess user data
 import numpy as np
 
-
+# Service to preprocess the user data
 def preprocess_users(users_df):
     users_df['age'] = users_df['age'].replace("NULL", np.nan).astype(float)
     users_df['age'] = users_df['age'].replace(0, users_df['age'].median())
     return users_df
 
 
-# Function to preprocess book data
+# Service to preprocess book data
 def preprocess_books(books_df):
     books_df['year_of_publication'] = books_df['year_of_publication'].replace(0, np.nan)
     books_df['publisher'] = books_df['publisher'].fillna("Unknown Publisher")
@@ -22,7 +22,7 @@ def preprocess_books(books_df):
     return books_df[['isbn', 'book_title', 'book_author', 'year_of_publication', 'publisher']]
 
 
-# Function to preprocess ratings data
+# Service to preprocess ratings data
 def preprocess_ratings(ratings_df):
     ratings_df['book_rating'] = ratings_df['book_rating'].replace(0, np.nan)
     valid_ratings_df = ratings_df.loc[ratings_df['book_rating'] > 0]
@@ -37,19 +37,19 @@ def preprocess_ratings(ratings_df):
     return ratings_df, review_counts
 
 
-# Function to preprocess genre data
+# Service to preprocess genre data
 def preprocess_genre(books_genre):
     books_genre['category'] = books_genre['category'].apply(lambda x: x.strip("[]").replace("'", ""))
     return books_genre
 
 
-# Function to partition the dataset
+# Service to partition the dataset
 def partition_books(books_model_df, review_counts, books_genre):
     books_all_info = books_model_df.merge(review_counts, on='isbn', how='left')
     books_all_info = books_all_info.merge(books_genre[['isbn', 'category']], on='isbn', how='left')
     books_all_info['category'] = books_all_info['category'].replace('', np.nan)
 
-    # Partitioning data into three parts
+    # Partitioning data into three parts based on data completnes
     books_complete_info_df = books_all_info[
         books_all_info['category'].notnull() & books_all_info['review_count'].notnull()]
     books_missing_genre_df = books_all_info[

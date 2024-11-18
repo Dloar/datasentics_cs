@@ -32,12 +32,12 @@ print(pred1[['isbn', 'book_title', 'book_author']])
 
 model2_obj = ModelCatMissingHandler(books_missing_genre=books_missing_genre_df.reset_index(),
                                     ratings_df=ratings_df)
-pred2 = model2_obj.hybrid_recommend_books(user_id=278854)
+pred2 = model2_obj.hybrid_recommend_books(user_id=278851)
 print(pred2)
 
 model3_obj = ModelNonMissingHandler(books_complete_info=books_complete_info_df.reset_index(),
                                     ratings_df=ratings_df)
-pred3 = model3_obj.hybrid_recommend_books(user_id=278854)
+pred3 = model3_obj.hybrid_recommend_books(user_id=8)
 print(pred3)
 
 breakpoint()

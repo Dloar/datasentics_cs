@@ -15,7 +15,7 @@ class ModelCatMissingHandler:
 
         print('Model 2')
         # Step 2: Train SVD for collaborative filtering
-        reader = Reader(rating_scale=(1, 5))
+        reader = Reader(rating_scale=(1, 10))
         data = Dataset.load_from_df(self.ratings_df[['user_id', 'isbn', 'book_rating']], reader)
         trainset = data.build_full_trainset()
 
